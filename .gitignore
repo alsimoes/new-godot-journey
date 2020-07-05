@@ -12,3 +12,6 @@ data_*/
 
 # OS-specific ignores
 .DS_Store
+
+# IDE-specific ignores
+*.code-workspace
