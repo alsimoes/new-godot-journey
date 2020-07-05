@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="new-godot-journey"
+config/name="gdquest-2d-platformer"
 config/icon="res://icon.png"
 
 [rendering]
