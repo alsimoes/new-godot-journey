@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+func _ready() -> void:
+	for n in get_children():
+		if \"mouse_filter\" in n:
+			n.mouse_filter = MOUSE_FILTER_IGNORE
+
+func get_drag_data(position: Vector2):
+	var preview = self.duplicate()
+	preview.modulate.a = 0.5
+	preview.get_node(\"color\").rect_position = -self.rect_size / 2
+	preview.get_node(\"bkg\").hide()
+	set_drag_preview(preview)
+	return self
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Control
+
+
+func _ready() -> void:
+	randomize()
+	for n in get_children():
+		if \"mouse_filter\" in n:
+			n.mouse_filter = MOUSE_FILTER_IGNORE
+
+
+func can_drop_data(position: Vector2, data) -> bool:
+	return true
+
+
+func drop_data(position: Vector2, data) -> void:
+	$color.color = data.get_node(\"color\").color
+	
+	data.get_node(\"color\").color = Color(randf(),randf(),randf(),1)
+
+
+"
+
+[node name="simple" type="Node2D"]
+
+[node name="header" type="Node2D" parent="."]
+
+[node name="origem" type="Control" parent="."]
+margin_left = 232.0
+margin_top = 435.812
+margin_right = 488.0
+margin_bottom = 691.812
+rect_min_size = Vector2( 256, 256 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bkg" type="ColorRect" parent="origem"]
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 266.0
+margin_bottom = 266.0
+rect_min_size = Vector2( 276, 276 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="color" type="ColorRect" parent="origem"]
+margin_right = 256.0
+margin_bottom = 256.0
+color = Color( 0.52549, 0.0745098, 0.0745098, 1 )
+
+[node name="destino" type="Control" parent="."]
+margin_left = 232.0
+margin_top = 842.898
+margin_right = 488.0
+margin_bottom = 1098.9
+rect_min_size = Vector2( 256, 256 )
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bkg" type="ColorRect" parent="destino"]
+margin_left = -10.0
+margin_top = -7.0
+margin_right = 266.0
+margin_bottom = 269.0
+rect_min_size = Vector2( 276, 276 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="color" type="ColorRect" parent="destino"]
+margin_right = 256.0
+margin_bottom = 256.0
+color = Color( 0.458824, 0.458824, 0.458824, 1 )
